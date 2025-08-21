@@ -20,7 +20,7 @@ fi
 SED_SCRIPT=$(mktemp)
 
 # Преобразуем JSON в sed-скрипт
-jq -r 'to_entries[] | "s/\\b\(.key)\\b/\(.value)/g"' terms_map.json > "$SED_SCRIPT"
+jq -r 'to_entries[] | "s/\(.key)/\(.value)/gI"' terms_map.json > "$SED_SCRIPT"
 
 # Обрабатываем каждый .md файл в папке raw_data
 for file in raw_data/*.md; do
