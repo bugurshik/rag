@@ -25,4 +25,4 @@ COPY . .
 # Создаем папку для данных, если ее нет
 RUN mkdir -p /knowledge_base
 
-CMD ["python", "embedder.py"]
+CMD ["python", "-u","embedder.py"]
