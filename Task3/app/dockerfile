@@ -1,0 +1,28 @@
+# Используем slim-образ с torch и Python 3.11
+FROM pytorch/pytorch:2.6.0-cuda12.6-cudnn9-runtime
+
+# Рабочая директория
+WORKDIR /app
+
+# Системные зависимости (для unstructured)
+RUN apt-get update && apt-get install -y \
+    tesseract-ocr \
+    poppler-utils \
+    libmagic-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Копируем requirements.txt
+COPY requirements.txt .
+
+# Устанавливаем Python-пакеты
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+# Копируем исходный код
+COPY . .
+
+# Создаем папку для данных, если ее нет
+RUN mkdir -p /knowledge_base
+
+CMD ["python", "-u","init_indexing.py"]
