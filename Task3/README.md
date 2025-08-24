@@ -6,7 +6,7 @@ Dimension: 1024
 # Embedding index
 Файл: starwars.snapshot
 Количество чанков: 1573
-Время на создание embeddings: 244 секунд (на CPU)
+Время на создание embeddings: 43 секунд (на GPU)
 Размер : 74.6 MB
 
 # Chunks

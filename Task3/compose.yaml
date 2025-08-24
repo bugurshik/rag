@@ -26,7 +26,13 @@ services:
     restart: on-failure
     networks:
       - app-network
-      
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 networks:
   app-network:
     driver: bridge
