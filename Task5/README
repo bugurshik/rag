@@ -1,0 +1,6 @@
+
+
+# Ежедневное обновление в 6:00 утра
+0 6 * * * /bin/bash {path_to_file}/update_index.sh
+
+Логи будут в той же папке, в файле /update_index.log

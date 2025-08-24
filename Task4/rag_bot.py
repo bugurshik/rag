@@ -5,10 +5,13 @@ import telebot
 from llm_module import RAGWithQdrant
 from retrieval_module import DataRetrieval
 from rag_system import RAGSystem
+import sys
 
 print("initing")
 load_dotenv()  # Загружает переменные из .env
-LLM_MODEL_NAME = "Qwen/Qwen-1_8B-Chat"
+sys.stdout.reconfigure(encoding="utf-8")
+
+LLM_MODEL_NAME = "Qwen/Qwen1.5-1.8B-Chat"
 EMBEDDING_MODEL = "BAAI/bge-m3"
 QDRANT_URL= "http://localhost:6333"
 COLLECTION_NAME = os.getenv('COLLECTION_NAME')
@@ -17,7 +20,7 @@ rag = RAGSystem(
     qdrant_url=QDRANT_URL,
     collection_name="starwars",
     embedding_model_name="BAAI/bge-m3",
-    llm_model_name="Qwen/Qwen-1_8B-Chat"
+    llm_model_name="Qwen/Qwen1.5-1.8B-Chat"
 )
 
 # Задаём вопрос
