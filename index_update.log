@@ -1,0 +1,4 @@
+2025-08-25 14:45:34,155 - INFO - Found 0 files in directory: ./knowledge_base
+2025-08-25 14:45:38,256 - ERROR - Ошибка при получении данных из QDrant: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение
+2025-08-25 14:45:38,256 - INFO - Found 0 exist files in QDrant
+2025-08-25 14:45:38,256 - INFO - index updated at 2025-08-25 14:45:38, 0 files added, 0 files updated, 0 files skipped, 0 chunks processed, 0 errors, duration: 4.10s

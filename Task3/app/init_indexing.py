@@ -31,6 +31,3 @@ testRequest = "События После Большой Уборки"
 print(f"Тестовый запрос: '{testRequest}'")
 answers = search_engine.search("События После Большой Уборки")
 print(answers)
-
-hashes = search_engine.get_all_hashes_in_qdrant()
-print(hashes)

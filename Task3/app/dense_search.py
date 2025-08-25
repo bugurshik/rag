@@ -92,7 +92,7 @@ class BgeDenseSearch:
         seen_points = 0
         limit = 1000  # Размер страницы (разумный баланс между кол-вом запросов и памятью)
 
-        print("🔄 Начинаем получение всех хешей из Qdrant...")
+        print(" Начинаем получение всех хешей из Qdrant...")
 
         while True:
             # Получаем порцию точек
@@ -103,7 +103,7 @@ class BgeDenseSearch:
                 with_vectors=False,
                 limit=limit,
                 offset=offset,
-                order_by=None  # Не нужна сортировка — scroll сам обрабатывает порядок
+                order_by=None 
             )
 
             points, next_offset = response
@@ -125,7 +125,7 @@ class BgeDenseSearch:
 
             offset = next_offset
 
-        print(f"✅ Завершено. Всего найдено {len(hashes)} уникальных file_hash")
+        print(f"Завершено. Всего найдено {len(hashes)} уникальных file_hash")
         return hashes
 
     def search(self, query: str, limit: int = 5) -> List[Dict]:
