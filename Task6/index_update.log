@@ -1,0 +1,32 @@
+2025-08-25 16:03:59,823 - INFO - Found 27 files in directory: Task6\knowledge_base
+2025-08-25 16:03:59,839 - INFO - HTTP Request: POST http://localhost:6333/collections/starwars/points/scroll "HTTP/1.1 200 OK"
+2025-08-25 16:03:59,856 - INFO - Found 26 exist files in QDrant
+2025-08-25 16:04:00,034 - INFO - HTTP Request: PUT http://localhost:6333/collections/starwars/points?wait=true "HTTP/1.1 200 OK"
+2025-08-25 16:04:00,035 - INFO - Обработан файл Task6\knowledge_base\NEW_FILE.md: 1 чанков
+2025-08-25 16:04:00,035 - INFO - No changes - Skip: Task6\knowledge_base\Амбрия.md
+2025-08-25 16:04:00,035 - INFO - No changes - Skip: Task6\knowledge_base\БитваЗаНабу.md
+2025-08-25 16:04:00,035 - INFO - No changes - Skip: Task6\knowledge_base\БитваПриЭндоре.md
+2025-08-25 16:04:00,035 - INFO - No changes - Skip: Task6\knowledge_base\БлуждающаяЛуна.md
+2025-08-25 16:04:00,035 - INFO - No changes - Skip: Task6\knowledge_base\БоеваяМедитация.md
+2025-08-25 16:04:00,035 - INFO - No changes - Skip: Task6\knowledge_base\Ванкуо.md
+2025-08-25 16:04:00,035 - INFO - No changes - Skip: Task6\knowledge_base\ВеликаяОхота.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\ВизасМарр.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\Вишейт.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\ВосстаниеНаМонКале.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\ВтораяБитваПриКоррибане.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\Дарт Нихилус.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\Датомирская магия.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\Дералия.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\Джеонозис.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\ДжокСа.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\ЗейнКеррик.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\Илум.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\Каббел.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\Крея.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\ЛюсьенДрей.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\МандалорскиеВойны.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\ПерваяБитваПриФондоре.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\Полус.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\Сила.md
+2025-08-25 16:04:00,036 - INFO - No changes - Skip: Task6\knowledge_base\Тарис.md
+2025-08-25 16:04:00,036 - INFO - index updated at 2025-08-25 16:04:00, 1 files added, 0 files updated, 26 files skipped, 1 chunks processed, 0 errors, duration: 3.05s

@@ -1,0 +1,42 @@
+@startuml
+!pragma layout smetana
+
+title "Система обновления индекса с эмбеддингами"
+
+rectangle "update_index.sh" as shell_script
+
+rectangle "update_index.py" as python_script {
+    rectangle "Проверка хэшей" as check
+    rectangle "Проверка путей файлов" as check_path
+    rectangle "Удаление старых документов" as delete
+    rectangle "Добавление новых документов" as add_new
+    rectangle "Разрезать файл на чанки" as chunks
+    rectangle "Кодирование embedding bge-m3" as embedding_model
+}
+
+database "Векторное хранилище" as index <<Qdrant>>
+database "Источник данных (knowledge_base)" as datasource
+
+file "index_update.log" as log_file
+
+agent "CRON" as cron_scheduler
+
+' Connections
+cron_scheduler --> shell_script : "запускает ежедневно в 6:00 утра"
+shell_script --> python_script : "выполняет скрипт"
+
+python_script --> datasource : "читает данные"
+python_script --> log_file : "записывает логи"
+check --> check_path : "Хэш файла не найден в db"
+check_path --> delete : "Файлы с таким путён найдены в дб"
+check_path --> add_new : "Файлы с таким путён не найдены в дб"
+
+delete --> add_new : "Добавть обновлённый файл"
+
+add_new --> chunks : "режет файл по 200 токенов \nи 20 токенов на пересечение"
+chunks --> embedding_model : ""
+embedding_model --> index : "сохраняет\nэмбеддинги в индекс"
+
+delete --> index : "(1) Удаление всех чанков со схожим путём к файлу"
+
+@enduml
