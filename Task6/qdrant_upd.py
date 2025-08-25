@@ -131,7 +131,7 @@ class QDrantUpdater:
             'errors': [],
             'total_chunks': 0
         }
-        
+        logging.info(f"Start: {datetime.datetime.now()}")
         try:
             # Сканируем директорию
             current_files = load_files(directory)
@@ -181,7 +181,7 @@ class QDrantUpdater:
                 f"{len(stats['errors'])} errors, "
                 f"duration: {duration:.2f}s"
             )
-            
+            logging.info(f"End: {datetime.datetime.now()}")
             logging.info(log_message)
             print(log_message)
             
