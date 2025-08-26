@@ -9,11 +9,7 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 def ragas_evaluate(logs_file:str):
     logs = read_jsonl(logs_file)
 
-    embedding_model = HuggingFaceEmbeddings(
-        model_name='BAAI/bge-m3',
-        model_kwargs={"device": 'cuda'},
-        encode_kwargs={'normalize_embeddings': True},
-    )
+
 
     def prepare_ragas_data(logs):
         ragas_data = []
@@ -35,11 +31,16 @@ def ragas_evaluate(logs_file:str):
     print("------contexts-------")
 
     ds = Dataset.from_list(ragas_formatted_data)
-
+    from openai import OpenAI
+    client = OpenAI(
+        api_key="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",  # может быть любым, если сервер не требует ключ
+        base_url="https://models.inference.ai.azure.com"
+    )
+  
     # 4. Получить метрики
     langchain_llm = HuggingFaceEndpoint(
-        repo_id="mistralai/Devstral-Small-2505",
-        provider="nebius",
+        repo_id="HuggingFaceTB/SmolLM3-3B",
+        provider="hf-inference",
         max_new_tokens=256,
         temperature=0,
         do_sample=False,
@@ -49,10 +50,15 @@ def ragas_evaluate(logs_file:str):
 
     from ragas.llms import LangchainLLMWrapper
     from ragas.embeddings import LangchainEmbeddingsWrapper
-
+    embedding_model = HuggingFaceEmbeddings(
+        model_name='BAAI/bge-m3',
+        model_kwargs={"device": 'cuda'},
+        encode_kwargs={'normalize_embeddings': True},
+    )
+    
     custom_embeddings = LangchainEmbeddingsWrapper(embeddings=embedding_model)
-    custom_llm = LangchainLLMWrapper(langchain_llm=langchain_llm)
-
+    # custom_llm = LangchainLLMWrapper(langchain_llm=langchain_llm)
+    custom_llm = LangchainLLMWrapper(langchain_llm=client)
     report = evaluate(ds, llm=custom_llm, embeddings=custom_embeddings, metrics=[faithfulness, answer_relevancy])
     print(report)
     return report
