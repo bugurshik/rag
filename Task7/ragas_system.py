@@ -9,8 +9,6 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 def ragas_evaluate(logs_file:str):
     logs = read_jsonl(logs_file)
 
-
-
     def prepare_ragas_data(logs):
         ragas_data = []
         
@@ -41,7 +39,6 @@ def ragas_evaluate(logs_file:str):
     langchain_llm = HuggingFaceEndpoint(
         repo_id="HuggingFaceTB/SmolLM3-3B",
         provider="hf-inference",
-        max_new_tokens=256,
         temperature=0,
         do_sample=False,
         task='text-generation',
@@ -55,7 +52,7 @@ def ragas_evaluate(logs_file:str):
         model_kwargs={"device": 'cuda'},
         encode_kwargs={'normalize_embeddings': True},
     )
-    
+
     custom_embeddings = LangchainEmbeddingsWrapper(embeddings=embedding_model)
     # custom_llm = LangchainLLMWrapper(langchain_llm=langchain_llm)
     custom_llm = LangchainLLMWrapper(langchain_llm=client)

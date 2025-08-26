@@ -20,7 +20,7 @@ EMBEDDING_MODEL = "BAAI/bge-m3"
 QDRANT_URL= "http://localhost:6333"
 COLLECTION_NAME = os.getenv('COLLECTION_NAME')
 
-LOG_FILE_PATH = 'Task7/log.jsonl'
+LOG_FILE_PATH = 'Task7/copy.jsonl'
 GOLDEN_QUESTION_FILE_PATH= 'Task7/golden_questions.txt'
 
 # --- 1. Эмбеддинги ---
@@ -42,26 +42,27 @@ rag = RAGSystem(
     llm_model_name=LLM_MODEL_NAME,
 )
 
-with open('filename.json', 'r', encoding='utf-8') as file:
+with open('Task7/golden_questions.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
-print(data)  # Список словарей
+print(data)
 eval_questions = read_as_list(GOLDEN_QUESTION_FILE_PATH)
 print(eval_questions)
 
 logs = []
-for question in eval_questions:
+for golden_question in data:
     start_time = datetime.datetime.now()
-    result = rag.ask(question)
+    result = rag.ask(golden_question['question'])
     print(result)
     end_time = datetime.datetime.now()
     log_entry = {
         "id": str(uuid.uuid4()),
-        "question": question,
+        "question": golden_question['question'],
         "timestamp": start_time.isoformat(),
         "has_context": len(result["sources"]) > 1,
         "answer": result["answer"],
         "answer_len": len(result["answer"]),
+        "reference" : golden_question['answer'],
         "sources": [doc['content'] for doc in result["sources"]],
         "sources_metadata": [doc for doc in result["sources"]],
     }

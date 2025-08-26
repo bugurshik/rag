@@ -17,7 +17,6 @@ class RAGSystem:
         self.device = device
         self.retriever = retriever
         self.tokenizer = AutoTokenizer.from_pretrained(llm_model_name)
-        
         self.model = AutoModelForCausalLM.from_pretrained(
             llm_model_name,
             device_map="auto",

@@ -1,0 +1,56 @@
+@startuml RAG Оценка с помощью Ragas
+actor "Пользователь/Оценщик" as User
+participant "evaluate.py (Главный скрипт оценки)" as Main
+participant "RAG Система (Qwen2.5-3B)" as RAG
+participant "Qdrant" as Index
+
+participant "RAGAS система" as Ragas
+participant "Метрики Ragas" as Eval
+participant "LLM Генератор (SmolLM3-3B)" as LLM
+
+' == Фаза 1 ==
+User -> Main: Запускает процесс оценки (evaluation.py)
+activate Main
+
+Main -> Main: Загружает golden_questions.json
+
+Main -> RAG: question
+activate RAG
+
+RAG -> RAG: Embedding encoding (запроса)
+RAG -> Index: Запрос похожих чанков (query)
+activate Index
+Index -> RAG: Возвращает список чанков (contexts)
+deactivate Index
+
+RAG -> Main: Записывае в логи вопрос, ответ и другие метаданные запроса
+deactivate RAG
+
+' #### Фаза 2
+
+Main -> Ragas: Инициация проверки
+activate Ragas
+Ragas -> Ragas: Загрузка логов в Dataset
+Ragas -> Ragas: Embedding encoding
+
+Ragas -> Eval: Запуск оценки датасета
+activate Eval
+Eval -> LLM: Отправка запроса в LLM 
+activate LLM
+
+LLM -> LLM: Вычисляет faithfulness
+LLM -> LLM: Вычисляет answer_relevancy
+LLM -> LLM: Вычисляет context_recall
+LLM -> Eval: Результаты метрик для текущего Dataset
+deactivate LLM
+
+Eval -> Ragas: Аггрегированные результаты для данного Dataset
+deactivate Eval
+Ragas -> Main: Получение результата
+deactivate Ragas
+Main -> Main: Сохраняет результат
+
+Main --> User: Выводит итоговый отчет\nи сохраняет в файл
+deactivate Main
+
+@enduml
