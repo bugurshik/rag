@@ -16,7 +16,8 @@ def ragas_evaluate(logs_file:str):
             ragas_data.append({
                 "question": log["question"],
                 "answer": log["answer"],
-                "contexts": log["sources"]
+                "contexts": log["sources"],
+                "references":log["references"],
             })
         
         return ragas_data
@@ -29,12 +30,6 @@ def ragas_evaluate(logs_file:str):
     print("------contexts-------")
 
     ds = Dataset.from_list(ragas_formatted_data)
-    from openai import OpenAI
-    client = OpenAI(
-        api_key="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",  # может быть любым, если сервер не требует ключ
-        base_url="https://models.inference.ai.azure.com"
-    )
-  
     # 4. Получить метрики
     langchain_llm = HuggingFaceEndpoint(
         repo_id="HuggingFaceTB/SmolLM3-3B",
@@ -54,8 +49,7 @@ def ragas_evaluate(logs_file:str):
     )
 
     custom_embeddings = LangchainEmbeddingsWrapper(embeddings=embedding_model)
-    # custom_llm = LangchainLLMWrapper(langchain_llm=langchain_llm)
-    custom_llm = LangchainLLMWrapper(langchain_llm=client)
-    report = evaluate(ds, llm=custom_llm, embeddings=custom_embeddings, metrics=[faithfulness, answer_relevancy])
+    custom_llm = LangchainLLMWrapper(langchain_llm=langchain_llm)
+    report = evaluate(ds, llm=custom_llm, embeddings=custom_embeddings, metrics=[faithfulness, answer_relevancy, context_recall])
     print(report)
     return report
